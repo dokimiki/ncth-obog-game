@@ -1,1 +1,2 @@
 # ncth-obog-game
+//こんにちは

@@ -18,10 +18,6 @@ public class RespawnSystem : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        /*for (Index = 0; Index < WallObj.Length; Index++)
-        {
-            WallObj[Index].Obj.SetActive(false);
-        }*/
         foreach (WallRespawnObj Wall in WallObj)
         {
             Wall.Obj.SetActive(false);
@@ -32,22 +28,6 @@ public class RespawnSystem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        /*if(Timer > EndTime){
-            RunEnd = true;
-            return;
-        }
-        Timer += Time.deltaTime;
-        if(Amount > ObjList.Count){
-            RespornMethod();
-        }
-        if(MaxAmount < ObjList.Count){
-            MaxAmount = ObjList.Count;
-            Timer = 0.0f;
-        }
-        ObjList.RemoveAll(obj => obj == null);*/
-    }
 
     void RespornMethod(){
         float PosX = Random.Range(StartRange.position.x,EndRange.position.x);

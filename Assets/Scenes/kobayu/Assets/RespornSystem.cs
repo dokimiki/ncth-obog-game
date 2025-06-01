@@ -4,9 +4,11 @@ using System.Collections;
 
 public class RespornSystem : MonoBehaviour
 {
+    public WallRespornObj[] WallObj;//自販機や壁などの生成物を管理するスクリプト。ここにオブジェクトを代入。
+    private int Index;//リスポーンさせるときに何番のオブジェクトを生成するかここで決める。
     public Transform StartRange;//生成する範囲の始まり
     public Transform EndRange;//生成する範囲の終わり
-    public GameObject Obj;//リスポーンさせるオブジェ
+    //public GameObject Obj;//リスポーンさせるオブジェ
     public int Amount = 400;//リスポーンさせる数。
     private int MaxAmount = 0;//実行中にこれ以上増やせないか調べるための変数。随時更新される。
     private List<GameObject> ObjList = new List<GameObject>();
@@ -16,7 +18,10 @@ public class RespornSystem : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Obj.SetActive(false);
+        for (Index = 0; Index < WallObj.Length; Index++)
+        {
+            WallObj[Index].Obj.SetActive(false);
+        }
         RunEnd = false;
         StartCoroutine(RespornMethodWhile());
     }
@@ -49,9 +54,9 @@ public class RespornSystem : MonoBehaviour
         PosZ = Mathf.Round(PosZ);
 
         float randomAngle = 90f * Random.Range(0, 2);
-        Obj.transform.rotation = Quaternion.Euler(0f, randomAngle, 0f);
+        WallObj[Index].Obj.transform.rotation = Quaternion.Euler(0f, randomAngle, 0f);
 
-        GameObject Obj2 = Instantiate(Obj,new Vector3(PosX,PosY,PosZ),Obj.transform.rotation);
+        GameObject Obj2 = Instantiate(WallObj[Index].Obj,new Vector3(PosX,PosY,PosZ),WallObj[Index].Obj.transform.rotation);
         ObjList.Add(Obj2);
         Obj2.SetActive(true);
     }
@@ -59,12 +64,23 @@ public class RespornSystem : MonoBehaviour
     IEnumerator RespornMethodWhile()
     {
         Timer = 0.0f;
-        while(Timer <= EndTime){
-            Timer += Time.deltaTime;
-            if(Amount > ObjList.Count){
-                RespornMethod();
+        int Count = 0;
+        Index = 0;
+        while (Timer <= EndTime)
+        {
+            if (WallObj[Index].Amount < Count)
+            {
+                Index++;
+                Count = 0;
             }
-            if(MaxAmount < ObjList.Count){
+            Timer += Time.deltaTime;
+            if (Amount > ObjList.Count)
+            {
+                RespornMethod();
+                Count++;
+            }
+            if (MaxAmount < ObjList.Count)
+            {
                 MaxAmount = ObjList.Count;
                 Timer = 0.0f;
             }

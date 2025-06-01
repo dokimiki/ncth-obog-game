@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class RespornSystem : MonoBehaviour
+public class RespawnSystem : MonoBehaviour
 {
-    public WallRespornObj[] WallObj;//自販機や壁などの生成物を管理するスクリプト。ここにオブジェクトを代入。
+    public WallRespawnObj[] WallObj;//自販機や壁などの生成物を管理するスクリプト。ここにオブジェクトを代入。
     private int Index;//リスポーンさせるときに何番のオブジェクトを生成するかここで決める。
     public Transform StartRange;//生成する範囲の始まり
     public Transform EndRange;//生成する範囲の終わり
@@ -18,10 +18,15 @@ public class RespornSystem : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        for (Index = 0; Index < WallObj.Length; Index++)
+        /*for (Index = 0; Index < WallObj.Length; Index++)
         {
             WallObj[Index].Obj.SetActive(false);
+        }*/
+        foreach (WallRespawnObj Wall in WallObj)
+        {
+            Wall.Obj.SetActive(false);
         }
+
         RunEnd = false;
         StartCoroutine(RespornMethodWhile());
     }

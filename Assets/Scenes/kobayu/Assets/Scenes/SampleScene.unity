@@ -20559,7 +20559,7 @@ GameObject:
   - component: {fileID: 395331978}
   - component: {fileID: 395331977}
   m_Layer: 0
-  m_Name: RespornSystem
+  m_Name: RespawnSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

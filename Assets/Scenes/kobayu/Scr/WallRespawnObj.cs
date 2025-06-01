@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class WallRespornObj
+public class WallRespawnObj
 {
     public GameObject Obj;
     public int Amount;
